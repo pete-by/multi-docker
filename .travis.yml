@@ -4,33 +4,33 @@ services:
   - docker
   
 before_install:
-  - docker build -t pete-by/react-test -f ./client/Dockerfile.dev ./client
+  - docker build -t peteby/react-test -f ./client/Dockerfile.dev ./client
   
 script:
-  - docker run -e CI=true pete-by/react-test npm run test
+  - docker run -e CI=true peteby/react-test npm run test
   
 after_success:
-  - docker build -t pete-by/multi-client -f ./client/Dockerfile ./client
-  - docker build -t pete-by/multi-server -f ./server/Dockerfile ./server  
-  - docker build -t pete-by/multi-worker -f ./worker/Dockerfile ./worker
-  - docker build -t pete-by/multi-nginx -f ./nginx/Dockerfile ./nginx 
+  - docker build -t peteby/multi-client -f ./client/Dockerfile ./client
+  - docker build -t peteby/multi-server -f ./server/Dockerfile ./server  
+  - docker build -t peteby/multi-worker -f ./worker/Dockerfile ./worker
+  - docker build -t peteby/multi-nginx -f ./nginx/Dockerfile ./nginx 
   # Log in to the docker CLI
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
   # Push docker images to the docker hub
-  - docker push pete-by/multi-client
-  - docker push pete-by/multi-server
-  - docker push pete-by/multi-worker
-  - docker push pete-by/multi-nginx
+  - docker push peteby/multi-client
+  - docker push peteby/multi-server
+  - docker push peteby/multi-worker
+  - docker push peteby/multi-nginx
   
-deploy:
-  edge: true
-  provider: elasticbeanstalk
-  region: "us-east-2"
-  app: "docker-react"
-  env: "DockerReact-env"
-  bucket: "elasticbeanstalk-us-east-2-974440216004"
-  bucket_path: "docker-react"
-  on:
-    branch: master  
-  access_key_id: $AWS_ACCESS_KEY
-  secret_access_key: $AWS_SECRET_KEY
+# deploy:
+  # edge: true
+  # provider: elasticbeanstalk
+  # region: "us-east-2"
+  # app: "docker-react"
+  # env: "DockerReact-env"
+  # bucket: "elasticbeanstalk-us-east-2-974440216004"
+  # bucket_path: "docker-react"
+  # on:
+    # branch: master  
+  # access_key_id: $AWS_ACCESS_KEY
+  # secret_access_key: $AWS_SECRET_KEY
