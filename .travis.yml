@@ -22,15 +22,15 @@ after_success:
   - docker push peteby/multi-worker
   - docker push peteby/multi-nginx
   
-# deploy:
-  # edge: true
-  # provider: elasticbeanstalk
-  # region: "us-east-2"
-  # app: "docker-react"
-  # env: "DockerReact-env"
-  # bucket: "elasticbeanstalk-us-east-2-974440216004"
-  # bucket_path: "docker-react"
-  # on:
-    # branch: master  
-  # access_key_id: $AWS_ACCESS_KEY
-  # secret_access_key: $AWS_SECRET_KEY
+deploy:
+  edge: true
+  provider: elasticbeanstalk
+  region: "us-east-2"
+  app: "multi-docker"
+  env: "MultiDocker-env"
+  bucket: "elasticbeanstalk-us-east-2-974440216004"
+  bucket_path: "multi-docker"
+  on:
+    branch: master  
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key: $AWS_SECRET_KEY

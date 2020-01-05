@@ -1,0 +1,36 @@
+{
+  "AWSEBDockerrunVersion": 2,
+  "containerDefinitions": [
+    {
+	  "name": "client",
+	  "image": "peteby/multi-client",
+	  "hostname": "client",
+	  "essential": false
+	},
+	{
+	  "name": "server",
+	  "image": "peteby/multi-server",
+	  "hostname": "api",
+	  "essential": false
+	},
+	{
+	  "name": "worker",
+	  "image": "peteby/multi-worker",
+	  "hostname": "worker",
+	  "essential": false
+	},
+	{
+	  "name": "nginx",
+	  "image": "peteby/multi-nginx",
+	  "hostname": "nginx",
+	  "essential": true,
+	  "portMappings": [
+		{
+		  "hostPort": 80,
+		  "containerPort": 80
+		}
+	  ],
+	  "links": ["client","server"]
+	}
+  ]
+}
